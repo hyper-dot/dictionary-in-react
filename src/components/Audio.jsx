@@ -11,6 +11,7 @@ function AudioPlayer({ audioUrl }) {
     if (isPlaying) {
       audioRef.current.pause();
     } else {
+      audioRef.current.load();
       audioRef.current.play();
     }
     setIsPlaying(!isPlaying);
