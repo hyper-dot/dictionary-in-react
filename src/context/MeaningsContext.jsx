@@ -5,6 +5,7 @@ export const MeaningContext = createContext();
 
 export const MeaningProvider = ({ children }) => {
   const [data, setData] = useState(null); // Initialize data as null
+  const [audio, setAudio] = useState('');
 
   const [selectedPartOfSpeech, setSelectedPartOfSpeech] = useState(null); // Initialize as null
   const [allPartsOfSpeech, setAllPartsOfSpeech] = useState([]);
@@ -32,7 +33,10 @@ export const MeaningProvider = ({ children }) => {
     const query = e.target[0].value;
     fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${query}`)
       .then((response) => response.json())
-      .then((data) => setData(data))
+      .then((data) => {
+        setData(data);
+        setAudio(data[0].phonetics[1].audio);
+      })
       .catch((error) => {
         console.log(error);
       });
@@ -45,6 +49,7 @@ export const MeaningProvider = ({ children }) => {
         data,
         allPartsOfSpeech,
         displayMeaning,
+        audio,
       }}
     >
       {children}

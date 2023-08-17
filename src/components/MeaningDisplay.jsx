@@ -7,18 +7,22 @@ import { Inter } from 'next/font/google';
 const inter = Inter({ subsets: ['latin'] });
 
 const MeaningDisplay = () => {
-  const { data, displayMeaning, allPartsOfSpeech } = useContext(MeaningContext);
+  const { data, displayMeaning, allPartsOfSpeech, audio } =
+    useContext(MeaningContext);
 
   return (
     <>
       <div className='flex items-center gap-4'>
-        <AudioPlayer audioUrl={data[0].phonetics[1].audio} />
+        <AudioPlayer audioUrl={audio} />
         <p>{data[0].phonetic}</p>
       </div>
 
       <div>
-        {allPartsOfSpeech.map((p) => (
-          <button className='text-black m-2 px-5 rounded-md outline-none bg-gray-300'>
+        {allPartsOfSpeech.map((p, index) => (
+          <button
+            className='text-black m-2 px-5 rounded-md outline-none bg-gray-300'
+            key={index}
+          >
             {p}
           </button>
         ))}
